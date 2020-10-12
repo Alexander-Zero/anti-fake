@@ -4,6 +4,7 @@ import com.antifake.gzzx.accountservice.model.ResourceDO;
 import com.antifake.gzzx.accountservice.service.ResourceService;
 import com.antifake.gzzx.common.model.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ public class ResourceController {
     @Autowired
     private ResourceService resourceService;
 
+    @PostMapping
     public ResponseResult addResource(@RequestBody ResourceDO resourceDO) {
         resourceService.addResource(resourceDO);
         return ResponseResult.SUCCESS();

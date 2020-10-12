@@ -2,6 +2,7 @@ package com.antifake.gzzx.accountservice.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -16,13 +17,13 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "t_resource")
-public class ResourceDO {
+public class ResourceDO implements GrantedAuthority {
     @Id
     private Long resourceId;//资源ID
     @Column
     private String resourceName; //资源名
     @Column
-    private String routerUrl;//路由地址
+    private String routeUrl;//路由地址
     @Column
     private Long parentId;   //父ID
     @Column
@@ -30,4 +31,8 @@ public class ResourceDO {
     @Column
     private Date updateDate;
 
+    @Override
+    public String getAuthority() {
+        return this.routeUrl;
+    }
 }

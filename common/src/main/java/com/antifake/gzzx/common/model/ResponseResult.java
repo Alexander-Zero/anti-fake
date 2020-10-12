@@ -1,6 +1,8 @@
 package com.antifake.gzzx.common.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
@@ -13,8 +15,10 @@ import java.io.Serializable;
  */
 @AllArgsConstructor
 @ToString
+@Getter
+@Setter
 public class ResponseResult<T> implements Serializable {
-    private Integer code;
+    private int code;
     private String message;
     private T data;
 

@@ -6,8 +6,10 @@ import com.antifake.gzzx.accountservice.service.UserRoleService;
 import com.antifake.gzzx.common.model.util.IDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Author : Zero
@@ -28,6 +30,17 @@ public class UserRoleServiceImpl implements UserRoleService {
             userRoleDOMapper.insert(userRoleDO);
 //            userRoleDOList.add(userRoleDO);
         });
+    }
 
+    @Override
+    public List<Long> getRoles(Long userId) {
+        Example example = new Example(UserRoleDO.class);
+        example.createCriteria()
+                .andEqualTo("userId", userId);
+        List<UserRoleDO> userRoleDOS = userRoleDOMapper.selectByExample(example);
+        List<Long> collect = userRoleDOS.stream()
+                .map(UserRoleDO::getRoleId)
+                .collect(Collectors.toList());
+        return collect;
     }
 }

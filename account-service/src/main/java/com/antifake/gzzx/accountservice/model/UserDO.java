@@ -11,6 +11,9 @@ import java.util.Date;
  * Author : Zero
  * Version: 1.0.0
  * Date   : 2020/10/10
+ * zero: admin (p1-p5)
+ * alex: client(p6-p10)
+ * alexander: admin+client (p1-p10)
  */
 @Data
 @Table(name = "t_user")
@@ -35,6 +38,7 @@ public class UserDO {
     @Column
     private Integer status; //状态
 
+    @Column
     private Date createDate;
     @Column
     private Date updateDate;

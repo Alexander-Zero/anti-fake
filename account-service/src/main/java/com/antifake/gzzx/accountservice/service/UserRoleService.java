@@ -12,4 +12,6 @@ import java.util.List;
 @Service
 public interface UserRoleService {
     void allocateRole(Long userId, List<Long> roleList);
+
+    List<Long> getRoles(Long userId);
 }

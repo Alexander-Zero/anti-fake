@@ -1,5 +1,6 @@
 package com.antifake.gzzx.accountservice.controller;
 
+import com.antifake.gzzx.accountservice.mapper.UserDOMapper;
 import com.antifake.gzzx.accountservice.model.UserDO;
 import com.antifake.gzzx.accountservice.service.UserService;
 import com.antifake.gzzx.common.model.ResponseResult;
@@ -27,10 +28,10 @@ public class UserController {
     }
 
 
-//    @PutMapping
-//    public ResponseResult updateUser(@RequestBody UserDO userDO) {
-//
-//        return ResponseResult.SUCCESS();
-//    }
+    @PutMapping
+    public ResponseResult updateUser(@RequestBody UserDO userDO) {
+        userService.updateUser(userDO);
+        return ResponseResult.SUCCESS();
+    }
 
 }
