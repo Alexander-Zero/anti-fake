@@ -1,6 +1,8 @@
 package com.antifake.gzzx.accountservice.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -13,12 +15,14 @@ import javax.persistence.Table;
  */
 @Data
 @Table(name = "r_role_resource")
+@NoArgsConstructor
+@AllArgsConstructor
 public class RoleResourceDO {
 
     @Id
-    private String roleResourceId;
+    private Long roleResourceId;
     @Column
-    private String roleId;//角色ID
+    private Long roleId;//角色ID
     @Column
-    private String resourceId;//资源ID
+    private Long resourceId;//资源ID
 }
