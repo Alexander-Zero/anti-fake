@@ -18,25 +18,13 @@ import java.util.Date;
 @Table(name = "t_resource")
 public class ResourceDO {
     @Id
-    private String resourceId;//资源ID
+    private Long resourceId;//资源ID
     @Column
     private String resourceName; //资源名
     @Column
-    private String parentId;   //父ID
-    @Column
-    private String resourceDesc;//资源描述
-    @Column
     private String routerUrl;//路由地址
     @Column
-    private String resourceIcon;//资源图标
-    @Column
-    private Integer resourceType;//资源类型[0菜单/1按钮/2路由]
-    @Column
-    private Integer status;
-    @Column
-    private Integer resourceLevel;//资源等级
-    @Column
-    private Integer serialNumber; //序号
+    private Long parentId;   //父ID
     @Column
     private Date createDate;
     @Column

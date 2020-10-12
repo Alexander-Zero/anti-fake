@@ -1,6 +1,7 @@
 package com.antifake.gzzx.common.model;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
  * 通用返回值
  */
 @AllArgsConstructor
+@ToString
 public class ResponseResult<T> implements Serializable {
     private Integer code;
     private String message;
