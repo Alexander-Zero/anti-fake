@@ -59,7 +59,6 @@ public class HelloWorldController {
     public String t9() {
         return "T9";
     }
-
     @GetMapping("/t10")
     public String t10() {
         return "T10";
