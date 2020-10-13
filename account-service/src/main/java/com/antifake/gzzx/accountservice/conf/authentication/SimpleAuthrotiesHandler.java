@@ -1,4 +1,4 @@
-package com.antifake.gzzx.accountservice.conf;
+package com.antifake.gzzx.accountservice.conf.authentication;
 
 import org.checkerframework.checker.units.qual.C;
 import org.springframework.stereotype.Component;

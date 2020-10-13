@@ -1,4 +1,4 @@
-package com.antifake.gzzx.accountservice.conf;
+package com.antifake.gzzx.accountservice.conf.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;

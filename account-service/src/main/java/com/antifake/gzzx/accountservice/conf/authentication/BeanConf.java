@@ -1,4 +1,4 @@
-package com.antifake.gzzx.accountservice.conf;
+package com.antifake.gzzx.accountservice.conf.authentication;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

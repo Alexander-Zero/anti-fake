@@ -1,5 +1,6 @@
-package com.antifake.gzzx.accountservice.conf;
+package com.antifake.gzzx.accountservice.conf.authentication;
 
+import com.antifake.gzzx.accountservice.conf.authentication.JsonAuthenticationFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -44,6 +45,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 //                .permitAll()
 //                .and()
                 .csrf().disable();
+//        http.addFilter()
 //        super.configure(http);
     }
 
