@@ -6,12 +6,16 @@ import com.antifake.gzzx.accountservice.model.vo.AuthenticationResult;
 import com.antifake.gzzx.accountservice.model.vo.ResourceVO;
 import com.antifake.gzzx.accountservice.util.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -59,16 +63,20 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 //        super.configure(http);
 
 
-        http.authenticationProvider(smsCodeAuthenticationProvider())
-                .authenticationProvider(dbAuthenticationProvider())
+        http
+                .authenticationProvider(smsCodeAuthenticationProvider())//短信认证
+                .authenticationProvider(dbAuthenticationProvider())//账号密码认证
                 .addFilterAfter(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .csrf().disable();
+                //关闭csrf认证
+                .csrf().disable()
+                //禁用session
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
 
     }
 
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.a
         super.configure(auth);
     }
 
@@ -79,9 +87,35 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         CustomAuthenticationFilter filter = new CustomAuthenticationFilter();
         filter.setAuthenticationManager(super.authenticationManagerBean());
         filter.setFilterProcessesUrl("/login");
-        filter.setAuthenticationSuccessHandler(new AuthenticationSuccessHandler() {
+        filter.setAuthenticationSuccessHandler(authenticationSuccessHandler());
+        filter.setAuthenticationFailureHandler(authenticationFailureHandler());
+
+        return filter;
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new AuthenticationFailureHandler() {
             @Override
-            public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+            public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
+                response.setContentType("application/json;charset=utf-8");
+                PrintWriter out = response.getWriter();
+                Map<String, Object> map = new HashMap<>();
+                map.put("status", "200");
+                map.put("msg", e.getMessage());
+                out.write(new ObjectMapper().writeValueAsString(map));
+                out.flush();
+                out.close();
+            }
+        };
+    }
+
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new AuthenticationSuccessHandler() {
+            @Override
+            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
                 response.setContentType("application/json;charset=utf-8");
                 PrintWriter out = response.getWriter();
 
@@ -101,24 +135,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 out.flush();
                 out.close();
             }
-        });
-
-//        filter.setAuthenticationFailureHandler(new AuthenticationFailureHandler() {
-//            @Override
-//            public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
-//                response.setContentType("application/json;charset=utf-8");
-//                PrintWriter out = response.getWriter();
-//                Map<String, Object> map = new HashMap<>();
-//                map.put("status", "200");
-//                map.put("msg", "密码或账号错误!");
-//                out.write(new ObjectMapper().writeValueAsString(map));
-//                out.flush();
-//                out.close();
-//            }
-//        });
-
-        return filter;
+        };
     }
-
 
 }
