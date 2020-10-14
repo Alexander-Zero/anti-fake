@@ -1,6 +1,7 @@
 package com.antifake.gzzx.accountservice.service;
 
 import com.antifake.gzzx.accountservice.model.ResourceDO;
+import com.antifake.gzzx.accountservice.model.vo.ResourceVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,5 +15,5 @@ import java.util.List;
 public interface RoleResourceService {
     void allocateResource(Long roleId, List<Long> resourceList);
 
-    List<ResourceDO> getResource(List<Long> roleIds);
+    List<ResourceVO> getResource(List<Long> roleIds);
 }

@@ -3,6 +3,7 @@ package com.antifake.gzzx.accountservice.service.impl;
 import com.antifake.gzzx.accountservice.mapper.UserDOMapper;
 import com.antifake.gzzx.accountservice.model.ResourceDO;
 import com.antifake.gzzx.accountservice.model.UserDO;
+import com.antifake.gzzx.accountservice.model.vo.ResourceVO;
 import com.antifake.gzzx.accountservice.service.RoleResourceService;
 import com.antifake.gzzx.accountservice.service.UserRoleService;
 import com.antifake.gzzx.accountservice.service.UserService;
@@ -73,7 +74,12 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException("用户不存在");
         }
         List<Long> roleIds = userRoleService.getRoles(userDO.getUserId());
-        List<ResourceDO> resource = roleResourceService.getResource(roleIds);
+        List<ResourceVO> resource = roleResourceService.getResource(roleIds);
         return new User(userDO.getUserName(), userDO.getPassword(), resource);
+    }
+
+    @Override
+    public UserDO loadUserByMobile(String mobile) {
+        return null;
     }
 }

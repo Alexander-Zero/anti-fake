@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.antifake.gzzx.accountservice.mapper.RoleResourceDOMapper;
 import com.antifake.gzzx.accountservice.model.ResourceDO;
 import com.antifake.gzzx.accountservice.model.RoleResourceDO;
+import com.antifake.gzzx.accountservice.model.vo.ResourceVO;
 import com.antifake.gzzx.accountservice.service.ResourceService;
 import com.antifake.gzzx.accountservice.service.RoleResourceService;
 import com.antifake.gzzx.common.model.util.IDGenerator;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +41,7 @@ public class RoleResourceServiceImpl implements RoleResourceService {
 
 
     @Override
-    public List<ResourceDO> getResource(List<Long> roleIds) {
+    public List<ResourceVO> getResource(List<Long> roleIds) {
         if (CollectionUtil.isEmpty(roleIds)) {
             return Collections.emptyList();
         }
@@ -51,6 +53,10 @@ public class RoleResourceServiceImpl implements RoleResourceService {
                 .map(RoleResourceDO::getResourceId)
                 .collect(Collectors.toList());
         List<ResourceDO> resources = resourceService.getResourceByIds(resourceIds);
-        return resources;
+
+        //需要归类
+        List<ResourceVO> resourceVOList = new ArrayList<>();
+
+        return resourceVOList;
     }
 }

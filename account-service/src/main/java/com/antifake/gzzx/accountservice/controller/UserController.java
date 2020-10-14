@@ -1,6 +1,5 @@
 package com.antifake.gzzx.accountservice.controller;
 
-import com.antifake.gzzx.accountservice.mapper.UserDOMapper;
 import com.antifake.gzzx.accountservice.model.UserDO;
 import com.antifake.gzzx.accountservice.service.UserService;
 import com.antifake.gzzx.common.model.ResponseResult;

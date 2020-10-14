@@ -1,4 +1,4 @@
-package com.antifake.gzzx.accountservice.conf.authentication;
+package com.antifake.gzzx.accountservice.conf.authentication.delete;
 
 import com.antifake.gzzx.accountservice.service.UserService;
 import org.checkerframework.checker.units.qual.A;
